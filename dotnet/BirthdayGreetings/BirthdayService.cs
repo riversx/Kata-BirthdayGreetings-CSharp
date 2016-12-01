@@ -1,11 +1,10 @@
-﻿using System;
-using System.Net.Mail;
+﻿using System.Net.Mail;
 
 namespace BirthdayGreetings
 {
 	public class BirthdayService
 	{
-		public void SendGreetings(String fileName, XDate xDate, String smtpHost, int smtpPort)
+		public void SendGreetings(string fileName, XDate xDate, string smtpHost, int smtpPort)
 		{
 			if (System.IO.File.Exists(fileName))
 			{
@@ -13,10 +12,10 @@ namespace BirthdayGreetings
 				do
 				{
 					var textLine = objReader.ReadLine();
-					if (!String.IsNullOrEmpty(textLine) && !textLine.Contains("last_name"))
+					if (!string.IsNullOrEmpty(textLine) && !textLine.Contains("last_name"))
 					{
 						var employeeData = textLine.Split(new char[] { ',' });
-						var employee = new Employee()
+						var employee = new Employee
 						{
 							FirstName = employeeData[1],
 							LastName = employeeData[0],
@@ -26,7 +25,7 @@ namespace BirthdayGreetings
 						if (employee.IsBirthday(xDate))
 						{
 							var recipient = employee.Email;
-							var body = String.Format("Happy Birthday, dear {0}!", employee.FirstName);
+							var body = string.Format("Happy Birthday, dear {0}!", employee.FirstName);
 							var subject = "Happy Birthday!";
 							SendMessage(smtpHost, smtpPort, "sender@here.com", subject, body, recipient);
 						}
@@ -36,7 +35,7 @@ namespace BirthdayGreetings
 
 		}
 
-		private void SendMessage(String smtpHost, int smtpPort, String sender, String subject, String body, String recipient)
+		void SendMessage(string smtpHost, int smtpPort, string sender, string subject, string body, string recipient)
 		{
 			// Create a mail session
 			//java.util.Properties props = new java.util.Properties();
@@ -51,7 +50,7 @@ namespace BirthdayGreetings
 		}
 
 		// made protected for testing :-(
-		protected void SendMessage(String smtpHost, int smtpPort, MailMessage mail)
+		protected void SendMessage(string smtpHost, int smtpPort, MailMessage mail)
 		{
 			var smtpClient = new SmtpClient(smtpHost, smtpPort);
 			smtpClient.Credentials = new System.Net.NetworkCredential("info@MyWebsiteDomainName.com", "myIDPassword");

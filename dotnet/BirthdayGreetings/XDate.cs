@@ -7,25 +7,16 @@ namespace BirthdayGreetings
     {
 		readonly DateTime dateTime;
 
-		public int Day
-        {
-            get { return dateTime.Day; } 
-        }
+		public int Day { get { return dateTime.Day; } }
 
-        public int Month
-        {
-            get { return dateTime.Month; }
-        }
+        public int Month { get { return dateTime.Month; } }
 
-        public int Year
-        {
-            get { return dateTime.Year; }
-        }
+        public int Year { get { return dateTime.Year; } }
 
         public XDate(string d):this(DateTime.ParseExact(d, "yyyy/MM/dd", null, DateTimeStyles.None)) {}
 
         public XDate(DateTime d)
-        {
+		{
 			dateTime = d;
         }
 
@@ -42,7 +33,7 @@ namespace BirthdayGreetings
             if (obj == null) return false;
             if (!(obj is XDate)) return false;
             var _date = (XDate)obj;
-            return _date.IsSameDay(this) && _date.Year == this.Year;
+            return _date.IsSameDay(this) && _date.Year == Year;
         }
 
 		public override int GetHashCode()
