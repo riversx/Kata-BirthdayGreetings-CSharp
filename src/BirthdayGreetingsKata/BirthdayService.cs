@@ -12,25 +12,8 @@ namespace BirthdayGreetings
         {
             if (System.IO.File.Exists(fileName))
             {
-                var objStream = new FileStream(fileName, FileMode.Open);
-                var objReader = new StreamReader(objStream);
-                List<Employee> employees = new List<Employee>();
-                do
-                {
-                    var textLine = objReader.ReadLine();
-                    if (!string.IsNullOrEmpty(textLine) && !textLine.Contains("last_name"))
-                    {
-                        var employeeData = textLine.Split(new char[] { ',' });
-                        var employee = new Employee
-                        {
-                            FirstName = employeeData[1],
-                            LastName = employeeData[0],
-                            BirthDate = new XDate(employeeData[2]),
-                            Email = employeeData[3]
-                        };
-                        employees.Add(employee);
-                    }
-                } while (objReader.Peek() != -1);
+                var repositoy = new FileEmployeesRepository(fileName);
+                List<Employee> employees = repositoy.GetAll();
 
                 foreach (var employee in employees)
                 {
