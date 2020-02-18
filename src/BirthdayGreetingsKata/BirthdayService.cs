@@ -30,7 +30,7 @@ namespace BirthdayGreetings
                         {
                             var recipient = employee.Email;
                             var body = string.Format("Happy Birthday, dear {0}!", employee.FirstName);
-                            var subject = "Happy Birthday";
+                            var subject = "Happy Birthday!";
                             SendMessage(smtpHost, smtpPort, "sender@here.com", subject, body, recipient);
                         }
                     }
