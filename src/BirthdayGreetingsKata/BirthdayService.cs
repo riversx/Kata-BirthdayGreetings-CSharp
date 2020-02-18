@@ -1,4 +1,5 @@
 ﻿// using System.Net.Mail;
+using System.Collections.Generic;
 using System.IO;
 using MailKit.Net.Smtp;
 using MimeKit;
@@ -13,6 +14,7 @@ namespace BirthdayGreetings
             {
                 var objStream = new FileStream(fileName, FileMode.Open);
                 var objReader = new StreamReader(objStream);
+                List<Employee> employees = new List<Employee>();
                 do
                 {
                     var textLine = objReader.ReadLine();
@@ -26,15 +28,20 @@ namespace BirthdayGreetings
                             BirthDate = new XDate(employeeData[2]),
                             Email = employeeData[3]
                         };
-                        if (employee.IsBirthday(xDate))
-                        {
-                            var recipient = employee.Email;
-                            var body = string.Format("Happy Birthday, dear {0}!", employee.FirstName);
-                            var subject = "Happy Birthday!";
-                            SendMessage(smtpHost, smtpPort, "sender@here.com", subject, body, recipient);
-                        }
+                        employees.Add(employee);
                     }
                 } while (objReader.Peek() != -1);
+
+                foreach (var employee in employees)
+                {
+                    if (employee.IsBirthday(xDate))
+                    {
+                        var recipient = employee.Email;
+                        var body = string.Format("Happy Birthday, dear {0}!", employee.FirstName);
+                        var subject = "Happy Birthday!";
+                        SendMessage(smtpHost, smtpPort, "sender@here.com", subject, body, recipient);
+                    }
+                }
             }
 
         }
