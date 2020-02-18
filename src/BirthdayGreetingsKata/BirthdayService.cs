@@ -1,5 +1,5 @@
-﻿// using System.Net.Mail;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace BirthdayGreetings
 {
@@ -15,14 +15,11 @@ namespace BirthdayGreetings
         }
         public void SendGreetings(XDate xDate)
         {
-            List<Employee> employees = repository.GetAll();
-            foreach (var employee in employees)
-            {
-                if (employee.IsBirthday(xDate))
-                {
-                    messageService.SendGreetingsToEmplyee(employee);
-                }
-            }
+            List<Employee> employees = repository.GetAll()
+                .Where(e => e.IsBirthday(xDate))
+                .ToList();
+            employees.AsParallel()
+                .ForAll(employee => messageService.SendGreetingsToEmplyee(employee));
         }
 
     }
