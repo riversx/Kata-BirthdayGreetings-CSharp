@@ -5,10 +5,10 @@ namespace BirthdayGreetings
 {
     public class BirthdayService
     {
-        private readonly FileEmployeesRepository repository;
+        private readonly IEmployeesRepository repository;
         private readonly IMessageService messageService;
 
-        public BirthdayService(FileEmployeesRepository repository, IMessageService messageService)
+        public BirthdayService(IEmployeesRepository repository, IMessageService messageService)
         {
             this.repository = repository;
             this.messageService = messageService;

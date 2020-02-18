@@ -5,7 +5,8 @@ using System.IO;
 
 namespace BirthdayGreetings
 {
-    public class FileEmployeesRepository
+
+    public class FileEmployeesRepository : IEmployeesRepository
     {
         private string fileName;
 
