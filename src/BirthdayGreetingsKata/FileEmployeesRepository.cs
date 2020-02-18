@@ -14,7 +14,7 @@ namespace BirthdayGreetings
             this.fileName = fileName;
         }
 
-        internal List<Employee> GetAll()
+        public List<Employee> GetAll()
         {
             var employees = new List<Employee>();
             if (System.IO.File.Exists(fileName))

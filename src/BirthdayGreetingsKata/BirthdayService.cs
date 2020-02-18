@@ -6,9 +6,9 @@ namespace BirthdayGreetings
     public class BirthdayService
     {
         private readonly FileEmployeesRepository repository;
-        private readonly SmtpMessageService messageService;
+        private readonly IMessageService messageService;
 
-        public BirthdayService(FileEmployeesRepository repository, SmtpMessageService messageService)
+        public BirthdayService(FileEmployeesRepository repository, IMessageService messageService)
         {
             this.repository = repository;
             this.messageService = messageService;

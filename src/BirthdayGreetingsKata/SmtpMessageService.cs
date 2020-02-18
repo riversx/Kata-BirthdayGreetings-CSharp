@@ -4,7 +4,8 @@ using MimeKit;
 
 namespace BirthdayGreetings
 {
-    public class SmtpMessageService
+
+    public class SmtpMessageService : IMessageService
     {
         private readonly string smtpHost;
         private readonly int smtpPort;
@@ -15,7 +16,7 @@ namespace BirthdayGreetings
             this.smtpPort = smtpPort;
         }
 
-        internal void SendGreetingsToEmplyee(Employee employee)
+        public void SendGreetingsToEmplyee(Employee employee)
         {
             var recipient = employee.Email;
             var body = string.Format("Happy Birthday, dear {0}!", employee.FirstName);
@@ -39,7 +40,7 @@ namespace BirthdayGreetings
 
         // made protected for testing :-( 
         // this was originally needed in java  - check if is needed here as well.
-        protected void SendMessage(string smtpHost, int smtpPort, MimeMessage message)
+        private void SendMessage(string smtpHost, int smtpPort, MimeMessage message)
         {
             using (var smtpClient = new SmtpClient())
             {
