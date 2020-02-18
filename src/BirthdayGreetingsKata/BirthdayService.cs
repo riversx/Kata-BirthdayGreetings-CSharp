@@ -12,12 +12,12 @@ namespace BirthdayGreetings
                 var repositoy = new FileEmployeesRepository(fileName);
                 List<Employee> employees = repositoy.GetAll();
 
-                var messageService = new SmtpMessageService();
+                var messageService = new SmtpMessageService(smtpHost, smtpPort);
                 foreach (var employee in employees)
                 {
                     if (employee.IsBirthday(xDate))
                     {
-                        messageService.SendGreetingsToEmplyee(smtpHost, smtpPort, employee);
+                        messageService.SendGreetingsToEmplyee(employee);
                     }
                 }
             }

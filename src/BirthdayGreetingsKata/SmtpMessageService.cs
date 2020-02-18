@@ -6,11 +6,16 @@ namespace BirthdayGreetings
 {
     internal class SmtpMessageService
     {
-        public SmtpMessageService()
+        private readonly string smtpHost;
+        private readonly int smtpPort;
+
+        public SmtpMessageService(string smtpHost, int smtpPort)
         {
+            this.smtpHost = smtpHost;
+            this.smtpPort = smtpPort;
         }
 
-        internal void SendGreetingsToEmplyee(string smtpHost, int smtpPort, Employee employee)
+        internal void SendGreetingsToEmplyee(Employee employee)
         {
             var recipient = employee.Email;
             var body = string.Format("Happy Birthday, dear {0}!", employee.FirstName);
