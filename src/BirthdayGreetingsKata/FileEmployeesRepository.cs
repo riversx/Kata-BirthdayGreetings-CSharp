@@ -5,7 +5,7 @@ using System.IO;
 
 namespace BirthdayGreetings
 {
-    internal class FileEmployeesRepository
+    public class FileEmployeesRepository
     {
         private string fileName;
 
@@ -17,24 +17,27 @@ namespace BirthdayGreetings
         internal List<Employee> GetAll()
         {
             var employees = new List<Employee>();
-            var objStream = new FileStream(fileName, FileMode.Open);
-            var objReader = new StreamReader(objStream);
-            do
+            if (System.IO.File.Exists(fileName))
             {
-                var textLine = objReader.ReadLine();
-                if (!string.IsNullOrEmpty(textLine) && !textLine.Contains("last_name"))
+                var objStream = new FileStream(fileName, FileMode.Open);
+                var objReader = new StreamReader(objStream);
+                do
                 {
-                    var employeeData = textLine.Split(new char[] { ',' });
-                    var employee = new Employee
+                    var textLine = objReader.ReadLine();
+                    if (!string.IsNullOrEmpty(textLine) && !textLine.Contains("last_name"))
                     {
-                        FirstName = employeeData[1],
-                        LastName = employeeData[0],
-                        BirthDate = new XDate(employeeData[2]),
-                        Email = employeeData[3]
-                    };
-                    employees.Add(employee);
-                }
-            } while (objReader.Peek() != -1);
+                        var employeeData = textLine.Split(new char[] { ',' });
+                        var employee = new Employee
+                        {
+                            FirstName = employeeData[1],
+                            LastName = employeeData[0],
+                            BirthDate = new XDate(employeeData[2]),
+                            Email = employeeData[3]
+                        };
+                        employees.Add(employee);
+                    }
+                } while (objReader.Peek() != -1);
+            }
             return employees;
         }
     }

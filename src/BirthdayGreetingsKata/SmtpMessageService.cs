@@ -4,7 +4,7 @@ using MimeKit;
 
 namespace BirthdayGreetings
 {
-    internal class SmtpMessageService
+    public class SmtpMessageService
     {
         private readonly string smtpHost;
         private readonly int smtpPort;

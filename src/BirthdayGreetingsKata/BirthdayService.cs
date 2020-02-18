@@ -5,23 +5,24 @@ namespace BirthdayGreetings
 {
     public class BirthdayService
     {
-        public void SendGreetings(string fileName, XDate xDate, string smtpHost, int smtpPort)
-        {
-            if (System.IO.File.Exists(fileName))
-            {
-                var repositoy = new FileEmployeesRepository(fileName);
-                List<Employee> employees = repositoy.GetAll();
+        private readonly FileEmployeesRepository repository;
+        private readonly SmtpMessageService messageService;
 
-                var messageService = new SmtpMessageService(smtpHost, smtpPort);
-                foreach (var employee in employees)
+        public BirthdayService(FileEmployeesRepository repository, SmtpMessageService messageService)
+        {
+            this.repository = repository;
+            this.messageService = messageService;
+        }
+        public void SendGreetings(XDate xDate)
+        {
+            List<Employee> employees = repository.GetAll();
+            foreach (var employee in employees)
+            {
+                if (employee.IsBirthday(xDate))
                 {
-                    if (employee.IsBirthday(xDate))
-                    {
-                        messageService.SendGreetingsToEmplyee(employee);
-                    }
+                    messageService.SendGreetingsToEmplyee(employee);
                 }
             }
-
         }
 
     }
